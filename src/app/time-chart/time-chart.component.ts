@@ -62,6 +62,8 @@ export class TimeChartComponent {
 
   //ToDo this seems to update only once - fix needed
   public updateSeries() {
+    this.dataSignal = this.dataService.getData();
+    console.warn('Update state:' + this.numbers);
 
     this.chartOptions.series = [{
       data: this.numbers

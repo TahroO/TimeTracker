@@ -34,37 +34,39 @@ export class TimerComponent implements OnDestroy {
     }
   }
 
-  //ToDo Needs to be reworked so that counter is not undefined;
   clearTimer() {
     this.running = false;
     this.startText = 'Start';
-    this.counter = undefined;
+    this.counter = 0;
     clearInterval(this.timerRef);
   }
 
   //ToDo needs fix for addition - subtract already existing balance from counter
   addCounterToAbsolut() {
     if (this.counter) {
-      this.totalAmount += this.counter;
-      this.addAbsolutToProject();
+      if (this.counter > this.totalAmount) {
+        this.totalAmount += (this.counter - this.totalAmount);
+        this.addAbsolutToProject();
+      } else {
+        this.totalAmount += this.counter;
+        this.addAbsolutToProject();
+      }
     }
-    this.sendData();
     return this.totalAmount;
   }
-
-  //ToDo Review which data is stored
-  // this also seems to update only once when button is pressed
+//ToDo fix to make it possible to store multiple values from different counters
   addAbsolutToProject() {
-    if (this.counter) {
-      this.projectData.push(this.counter);
-
+    if (this.totalAmount) {
+      this.projectData = [this.totalAmount];
+      console.log(this.totalAmount);
+      this.sendData(this.projectData);
       return this.projectData;
     }
-    return null;
+    return this.projectData;
   }
 
-  sendData() {
-    this.dataService.setData(this.projectData);
+  sendData(data: any) {
+    this.dataService.setData(data);
   }
 
   ngOnDestroy() {
