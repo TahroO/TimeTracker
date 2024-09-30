@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, Output} from '@angular/core';
 
 @Component({
   selector: 'app-timer',
@@ -8,11 +8,13 @@ import {Component, OnDestroy} from '@angular/core';
   styleUrl: './timer.component.css'
 })
 export class TimerComponent implements OnDestroy {
+
   counter: number | undefined;
   totalAmount: number = 0;
   timerRef: any;
   running: boolean = false;
   startText = 'Start';
+  projectData: number[] = [];
 
   startTimer() {
     this.running = !this.running;
@@ -38,8 +40,17 @@ export class TimerComponent implements OnDestroy {
   addCounterToAbsolut() {
     if (this.counter) {
       this.totalAmount += this.counter;
+      this.addAbsolutToProject();
     }
     return this.totalAmount;
+  }
+
+  addAbsolutToProject() {
+    if (this.counter) {
+      this.projectData.push(this.counter);
+      return this.projectData;
+    }
+    return null;
   }
 
   ngOnDestroy() {
