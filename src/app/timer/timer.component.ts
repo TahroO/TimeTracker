@@ -1,4 +1,5 @@
-import {Component, OnDestroy, Output} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
+import {DataService} from "../data-service/data-service";
 
 @Component({
   selector: 'app-timer',
@@ -8,6 +9,9 @@ import {Component, OnDestroy, Output} from '@angular/core';
   styleUrl: './timer.component.css'
 })
 export class TimerComponent implements OnDestroy {
+
+  constructor(private dataService: DataService) {
+  }
 
   counter: number | undefined;
   totalAmount: number = 0;
@@ -30,6 +34,7 @@ export class TimerComponent implements OnDestroy {
     }
   }
 
+  //ToDo Needs to be reworked so that counter is not undefined;
   clearTimer() {
     this.running = false;
     this.startText = 'Start';
@@ -37,20 +42,29 @@ export class TimerComponent implements OnDestroy {
     clearInterval(this.timerRef);
   }
 
+  //ToDo needs fix for addition - subtract already existing balance from counter
   addCounterToAbsolut() {
     if (this.counter) {
       this.totalAmount += this.counter;
       this.addAbsolutToProject();
     }
+    this.sendData();
     return this.totalAmount;
   }
 
+  //ToDo Review which data is stored
+  // this also seems to update only once when button is pressed
   addAbsolutToProject() {
     if (this.counter) {
       this.projectData.push(this.counter);
+
       return this.projectData;
     }
     return null;
+  }
+
+  sendData() {
+    this.dataService.setData(this.projectData);
   }
 
   ngOnDestroy() {

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import {Component, effect, ViewChild} from "@angular/core";
 
 import {
   ChartComponent,
@@ -7,6 +7,7 @@ import {
   ApexXAxis,
   ApexTitleSubtitle, NgApexchartsModule
 } from "ng-apexcharts";
+import {DataService} from "../data-service/data-service";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -24,16 +25,24 @@ export type ChartOptions = {
   styleUrl: './time-chart.component.css'
 })
 export class TimeChartComponent {
+  dataSignal;
+  numbers: number[] = [];
 
   @ViewChild("chart", {static: false }) chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>;
 
-  constructor() {
+  constructor(private dataService: DataService) {
+    effect(() => {
+      const currentSignalValue = this.dataSignal();
+      this.numbers = [...currentSignalValue];
+    });
+    this.dataSignal = this.dataService.getData();
+
     this.chartOptions = {
       series: [
         {
           name: "series-1",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          data: this.numbers
         }
       ],
       chart: {
@@ -44,15 +53,21 @@ export class TimeChartComponent {
         text: "Foo1"
       },
       xaxis: {
-        categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
+        categories: ["Project 1", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
       }
 
     };
 
   }
+
+  //ToDo this seems to update only once - fix needed
   public updateSeries() {
+
     this.chartOptions.series = [{
-      data: [23, 44, 1, 22]
+      data: this.numbers
     }];
+
+
   }
+
 }
