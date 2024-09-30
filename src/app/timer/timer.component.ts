@@ -41,10 +41,10 @@ export class TimerComponent implements OnDestroy {
     clearInterval(this.timerRef);
   }
 
-  //ToDo needs fix for addition - subtract already existing balance from counter
+  //ToDo needs fix for addition - else branch should be limited (multiple adds)
   addCounterToAbsolut() {
     if (this.counter) {
-      if (this.counter > this.totalAmount) {
+      if (this.counter >= this.totalAmount) {
         this.totalAmount += (this.counter - this.totalAmount);
         this.addAbsolutToProject();
       } else {
@@ -54,6 +54,7 @@ export class TimerComponent implements OnDestroy {
     }
     return this.totalAmount;
   }
+
 //ToDo fix to make it possible to store multiple values from different counters
   addAbsolutToProject() {
     if (this.totalAmount) {
