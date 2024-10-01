@@ -1,4 +1,4 @@
-export class TimerObject {
+export class Project {
 
   projectName: string;
   projectTime: number;

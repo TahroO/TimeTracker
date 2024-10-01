@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {DataService} from "../data-service/data-service";
-import {TimerObject} from "../utils/timerObject";
+import {Project} from "../utils/project";
 
 @Component({
   selector: 'app-timer',
@@ -20,7 +20,7 @@ export class TimerComponent implements OnDestroy {
   running: boolean = false;
   startText = 'Start';
   projectData: number[] = [];
-  projectDataTest: TimerObject[] = [];
+  projectDataTest: Project[] = [];
 
 
   startTimer() {
@@ -44,8 +44,8 @@ export class TimerComponent implements OnDestroy {
     clearInterval(this.timerRef);
   }
 
-  createTimerObject(projectName:string, timeSpent: number) {
-    return new TimerObject(projectName, timeSpent);
+  createProject(projectName:string, timeSpent: number) {
+    return new Project(projectName, timeSpent);
   }
 
   //ToDo needs fix for addition - else branch should be limited (multiple adds)
@@ -68,7 +68,7 @@ export class TimerComponent implements OnDestroy {
       this.projectData = [this.totalAmount];
       // this should be the timerObject array
       //ToDo how to provide the name generic?
-      this.projectDataTest = [this.createTimerObject('foo', this.totalAmount)];
+      this.projectDataTest = [this.createProject('foo', this.totalAmount)];
       console.log(this.totalAmount);
       console.log(this.projectDataTest);
       this.sendData(this.projectData);
