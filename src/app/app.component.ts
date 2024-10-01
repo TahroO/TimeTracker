@@ -14,20 +14,20 @@ import {TimeChartComponent} from "./time-chart/time-chart.component";
 export class AppComponent {
   title = 'TimeTracker';
 
-  timerObjects: number[] = []
+  timers: number[] = []
 
   constructor() {
 
   }
 
-  addTimerObjects() {
-    this.timerObjects.push(1);
-    return this.timerObjects;
+  addTimer() {
+    this.timers.push(1);
+    return this.timers;
   }
 
-  removeTimerObjects() {
-    this.timerObjects.pop();
-    return this.timerObjects;
+  removeTimer() {
+    this.timers.pop();
+    return this.timers;
   }
 
 

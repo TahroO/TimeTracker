@@ -1,12 +1,12 @@
 <div>
-  <button (click)="addTimerObjects()"> Add new Timer</button>
+  <button (click)="addTimer()"> Add new Timer</button>
 </div>
 <div>
-  <button (click)="removeTimerObjects()"> Remove a Timer</button>
+  <button (click)="removeTimer()"> Remove a Timer</button>
 </div>
 
 
-<ng-container *ngFor="let item of timerObjects">
+<ng-container *ngFor="let item of timers">
 <app-timer></app-timer>
 </ng-container>
 

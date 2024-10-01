@@ -1,11 +1,16 @@
 import {Component, OnDestroy} from '@angular/core';
 import {DataService} from "../data-service/data-service";
 import {Project} from "../utils/project";
+import {FormsModule} from "@angular/forms";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'app-timer',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+    JsonPipe
+  ],
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.css'
 })
@@ -84,4 +89,6 @@ export class TimerComponent implements OnDestroy {
   ngOnDestroy() {
     clearInterval(this.timerRef);
   }
+
+  protected readonly FormData = FormData;
 }

@@ -3,6 +3,12 @@
 <p>{{ counter }}</p>
 <p>{{ totalAmount }}</p>
 </div>
+<div>
+  <ng-form #timerForm = "ngForm">
+    {{ timerForm.value | json }}
+    Project: <input type="text" name = 'name' ngModel>
+    </ng-form>
+</div>
 <button (click)="startTimer()">{{ startText }}</button>
 <button (click)="addCounterToAbsolut()">Add</button>
 <button (click)="clearTimer()">Clear</button>
