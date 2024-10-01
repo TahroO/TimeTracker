@@ -67,8 +67,7 @@ export class TimeChartComponent {
     this.chartOptions.series = [{
       data: this.numbers
     }];
-
-
+    
   }
 
 }
